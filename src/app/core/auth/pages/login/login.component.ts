@@ -33,6 +33,11 @@ export class LoginComponent {
           this.response = res;
           this.isLoading = false;
           if (res.message == 'success') {
+            //save token
+            localStorage.setItem("userToken", res.token);
+            //decode the token
+            this._authService.saveUserData();
+            //navigate
             setInterval(() => {
               this._router.navigate(['/home']);
             }, 1000);
