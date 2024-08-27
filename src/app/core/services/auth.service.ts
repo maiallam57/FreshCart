@@ -1,9 +1,23 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Constants } from '../constants/constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor() { }
+  private readonly _httpClient = inject(HttpClient);
+  private readonly baseurl = Constants.baseUrl;
+  private readonly signup = Constants.signup;
+  private readonly signin = Constants.signin;
+
+  
+  setRegisterForm(data: object) {
+    return this._httpClient.post(`${this.baseurl}${this.signup}`, data);
+  }
+
+  setLoginForm(data: object) {
+    return this._httpClient.post(`${this.baseurl}${this.signin}`, data);
+  }
 }
