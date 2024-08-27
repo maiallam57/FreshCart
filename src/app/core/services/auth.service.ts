@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Constants } from '../constants/constants';
+import { Observable } from 'rxjs';
+import { environment } from '../environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,21 +9,18 @@ import { Constants } from '../constants/constants';
 export class AuthService {
 
   private readonly _httpClient = inject(HttpClient);
-  private readonly baseurl = Constants.baseUrl;
-  private readonly signup = Constants.signup;
-  private readonly signin = Constants.signin;
-  private readonly forgotPasswords = Constants.forgotPasswords;
+  private readonly baseurl = environment.baseUrl;
 
 
-  setRegisterForm(data: object) {
-    return this._httpClient.post(`${this.baseurl}${this.signup}`, data);
+  setRegisterForm(data: object): Observable<any> {
+    return this._httpClient.post(`${this.baseurl}${environment.signup}`, data);
   }
 
-  setLoginForm(data: object) {
-    return this._httpClient.post(`${this.baseurl}${this.signin}`, data);
+  setLoginForm(data: object): Observable<any> {
+    return this._httpClient.post(`${this.baseurl}${environment.signin}`, data);
   }
 
-  setforgetPasswordForm(data: object) {
-    return this._httpClient.post(`${this.baseurl}${this.forgotPasswords}`, data);
+  setforgetPasswordForm(data: object): Observable<any> {
+    return this._httpClient.post(`${this.baseurl}${environment.forgotPasswords}`, data);
   }
 }

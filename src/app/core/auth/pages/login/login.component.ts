@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Auth, ErrorRes } from '../../../interfaces/auth';
 
 @Component({
@@ -17,6 +17,8 @@ export class LoginComponent {
   errorRes!: ErrorRes;
 
   private readonly _authService = inject(AuthService);
+  private readonly _router = inject(Router);
+
 
   loginForm = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
@@ -24,24 +26,25 @@ export class LoginComponent {
   })
 
   submitLogin() {
-    this.response = {};
-    this.errorRes = {};
-
     if (this.loginForm.valid) {
       this.isLoading = true;
       this._authService.setLoginForm(this.loginForm.value).subscribe({
         next: (res) => {
           this.response = res;
-          console.log(res);
           this.isLoading = false;
+          if (res.message == 'success') {
+            setInterval(() => {
+              this._router.navigate(['/home']);
+            }, 1000);
+          }
         },
         error: (err) => {
           this.errorRes = err;
-          console.log(err);
           this.isLoading = false;
         }
       });
       this.loginForm.reset();
+      this.response = {};
       this.errorRes = {};
     } else {
       this.isLoading = false;
