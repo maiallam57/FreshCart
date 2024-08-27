@@ -11,13 +11,18 @@ export class AuthService {
   private readonly baseurl = Constants.baseUrl;
   private readonly signup = Constants.signup;
   private readonly signin = Constants.signin;
+  private readonly forgotPasswords = Constants.forgotPasswords;
 
-  
+
   setRegisterForm(data: object) {
     return this._httpClient.post(`${this.baseurl}${this.signup}`, data);
   }
 
   setLoginForm(data: object) {
     return this._httpClient.post(`${this.baseurl}${this.signin}`, data);
+  }
+
+  setforgetPasswordForm(data: object) {
+    return this._httpClient.post(`${this.baseurl}${this.forgotPasswords}`, data);
   }
 }
