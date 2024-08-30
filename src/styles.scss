@@ -49,10 +49,19 @@ a:hover {
     border: solid 1px var(--main-color);
     transition: box-shadow 0.5s;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .product:hover {
     box-shadow: 0 0 10px #11bd1168;
+}
+
+.product img {
+    transition: all 0.5s;
+}
+
+.product img:hover {
+    transform: scale(1.1);
 }
 
 .font-sm {
