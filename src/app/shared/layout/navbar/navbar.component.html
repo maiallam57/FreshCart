@@ -13,6 +13,7 @@
             </svg>
         </button>
         <div class="hidden w-full lg:w-10/12 lg:flex lg:justify-between" id="navbar-default">
+            @if(loggedUser){
             <div>
                 <ul>
                     <li>
@@ -61,18 +62,20 @@
                             <i class="fa-brands fa-youtube"></i>
                         </a>
                     </li>
+                    @if(!loggedUser){
                     <li>
                         <a routerLink="/register" routerLinkActive="active">Register</a>
                     </li>
                     <li>
                         <a routerLink="/login" routerLinkActive="active">Login</a>
                     </li>
+                    }
                     <li>
                         <a>SignOut</a>
                     </li>
                 </ul>
             </div>
-
+            }
         </div>
 
     </div>
