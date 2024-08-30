@@ -1,5 +1,6 @@
 <section class="container p-3 my-3">
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+    <app-main-slider />
+    <div class="my-3 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
 
         @for (product of productList.slice(0,12); track $index) {
         <app-product-item [product]="product" />
