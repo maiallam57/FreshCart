@@ -1,11 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ProductService } from '../../../core/services/product.service';
 import { Product } from '../../../core/interfaces/product';
+import { ProductItemComponent } from "../../../shared/components/ui/product-item/product-item.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [ProductItemComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
