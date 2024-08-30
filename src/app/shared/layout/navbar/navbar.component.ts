@@ -19,11 +19,13 @@ export class NavbarComponent implements AfterContentChecked {
   loggedUser: boolean = false;
 
   ngAfterContentChecked() {
-    this._authService.saveUserData();
-    if (this._authService.userData) {
-      this.loggedUser = true;
-    } else {
-      this.loggedUser = false;
+    if (isPlatformBrowser(this._platform)) {
+      this._authService.saveUserData();
+      if (this._authService.userData) {
+        this.loggedUser = true;
+      } else {
+        this.loggedUser = false;
+      }
     }
   }
 
