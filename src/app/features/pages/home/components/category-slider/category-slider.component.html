@@ -3,9 +3,7 @@
 <owl-carousel-o [options]="customOptions">
     @for (slide of categoryList; track slide._id) {
     <ng-template carouselSlide [id]="slide._id">
-        <div class="relative">
-            <img class="h-[200px]" [src]="slide.image" [alt]="slide.name" [title]="slide.name">
-        </div>
+        <img class="h-[200px] rounded-lg" [src]="slide.image" [alt]="slide.name" [title]="slide.name">
     </ng-template>
     }
 </owl-carousel-o>
