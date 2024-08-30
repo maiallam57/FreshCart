@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../../services/auth.service';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Auth, ErrorRes } from '../../../interfaces/auth';
+import { environment } from '../../../environment/environment';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +35,7 @@ export class LoginComponent {
           this.isLoading = false;
           if (res.message == 'success') {
             //save token
-            localStorage.setItem("userToken", res.token);
+            localStorage.setItem(environment.token, res.token);
             //decode the token
             this._authService.saveUserData();
             //navigate
