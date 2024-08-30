@@ -1,1 +1,11 @@
-<p>category-slider works!</p>
+<h2 class="font-bold mb-3">Shop Popular Categories</h2>
+
+<owl-carousel-o [options]="customOptions">
+    @for (slide of categoryList; track slide._id) {
+    <ng-template carouselSlide [id]="slide._id">
+        <div class="relative">
+            <img class="h-[200px]" [src]="slide.image" [alt]="slide.name" [title]="slide.name">
+        </div>
+    </ng-template>
+    }
+</owl-carousel-o>

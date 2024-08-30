@@ -5,4 +5,5 @@ export const environment = {
     signin: '/api/v1/auth/signin',
     forgotPasswords: '/api/v1/auth/forgotPasswords',
     products: '/api/v1/products',
+    category: '/api/v1/categories'
 }
