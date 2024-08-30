@@ -38,7 +38,7 @@ export class LoginComponent {
             //decode the token
             this._authService.saveUserData();
             //navigate
-            setInterval(() => {
+            setTimeout(() => {
               this._router.navigate(['/home']);
             }, 1000);
           }
