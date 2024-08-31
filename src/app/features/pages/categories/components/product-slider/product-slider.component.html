@@ -1,0 +1,9 @@
+<h2 class="text-2xl font-bold my-3">{{CategoryName}}</h2>
+
+<owl-carousel-o [options]="customOptions">
+    @for (slide of productList; track slide.id) {
+    <ng-template carouselSlide [id]="slide.id">
+        <app-product-item [product]="slide"></app-product-item>
+    </ng-template>
+    }
+</owl-carousel-o>
