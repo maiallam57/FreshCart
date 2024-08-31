@@ -21,7 +21,7 @@ export class CategoryLabelDirective implements OnInit {
       'px-2.5',
       'py-0.5',
       'rounded',
-      `bg-${color}-100`,
+      `bg-${color}-300`,
       `text-${color}-800`
     ];
     classList.forEach(className => {

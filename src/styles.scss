@@ -52,6 +52,7 @@ a:hover {
     transition: box-shadow 0.5s;
     overflow: hidden;
     cursor: pointer;
+    transition: all 0.5s;
 }
 
 .product:hover {
@@ -63,6 +64,16 @@ a:hover {
 }
 
 .product img:hover {
+    transform: scale(1.1);
+}
+
+.product button {
+    position: absolute;
+    transition: all 0.5s;
+}
+
+.product:hover button {
+    position: relative;
     transform: scale(1.1);
 }
 

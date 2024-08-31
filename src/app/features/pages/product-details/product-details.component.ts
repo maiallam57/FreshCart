@@ -67,7 +67,6 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     this.getSpecificProductSub = this._productService.getSpecificProducts(productId).subscribe({
       next: (res) => {
         this.productDetails = res.data;
-        console.log(res);
       },
       error: (err) => {
         console.log(err);

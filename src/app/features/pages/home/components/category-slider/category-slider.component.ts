@@ -50,7 +50,6 @@ export class CategorySliderComponent implements OnInit, OnDestroy {
     this.getAllCategories = this._categoryservice.getAllCategories().subscribe({
       next: (res) => {
         this.categoryList = res.data;
-        console.log(this.categoryList);
       },
       error: (err) => {
         console.log(err);
