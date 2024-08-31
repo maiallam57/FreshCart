@@ -1,67 +1,71 @@
-<h2 class="text-2xl font-bold text-main text-center py-5 uppercase">Product Details</h2>
+<div>
+    <h2 class="text-2xl font-bold text-main text-center py-5 uppercase">Product Details</h2>
 
-<section class="mb-5 flex w-full mx-auto justify-center content-center">
-    @if (productDetails) {
-    <div class="w-4/12">
-        <owl-carousel-o [options]="customOptions">
-            @for (item of productDetails.images; track $index) {
-            <ng-template carouselSlide>
-                <img class="w-full h-[400px] rounded-lg" [src]="item" [alt]="'image'+$index">
-            </ng-template>
-            }
-        </owl-carousel-o>
-    </div>
+    <section class="mb-5 flex w-full mx-auto justify-center content-center">
+        @if (productDetails) {
+        <div class="w-4/12">
+            <owl-carousel-o [options]="customOptionsDetails">
+                @for (item of productDetails.images; track $index) {
+                <ng-template carouselSlide>
+                    <div>
+                        <img class="w-[400px] h-[400px] rounded-lg" [src]="item" [alt]="'image'+$index">
+                    </div>
+                </ng-template>
+                }
+            </owl-carousel-o>
+        </div>
 
-    <div class="flex flex-col w-8/12 p-5 justify-center">
-        <div class="px-3">
-            <h4 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                {{productDetails.title}}</h4>
+        <div class="flex flex-col w-8/12 p-5 justify-center">
+            <div class="px-3">
+                <h4 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    {{productDetails.title}}</h4>
 
-            <p class="mb-3">{{productDetails.description}}</p>
+                <p class="mb-3">{{productDetails.description}}</p>
 
-            <div class="mb-3">
-                <div>
-                    @if (productDetails.priceAfterDiscount) {
-                    <span class="mb-3 text-sm text-gray-800 line-through">{{productDetails.price}} EGP</span>
-                    <h5 class="mb-3 font-bold text-red-700">{{productDetails.priceAfterDiscount}} EGP
-                    </h5>
-                    }@else {
-                    <h5 class="mb-3 font-bold text-gray-800">{{productDetails.price}} EGP</h5>
-                    }
+                <div class="mb-3">
+                    <div>
+                        @if (productDetails.priceAfterDiscount) {
+                        <span class="mb-3 text-sm text-gray-800 line-through">{{productDetails.price}} EGP</span>
+                        <h5 class="mb-3 font-bold text-red-700">{{productDetails.priceAfterDiscount}} EGP
+                        </h5>
+                        }@else {
+                        <h5 class="mb-3 font-bold text-gray-800">{{productDetails.price}} EGP</h5>
+                        }
+                    </div>
+
+                    <div>
+                        @for (num of [1,2,3,4,5].slice(0,productDetails.ratingsAverage); track $index) {
+                        <span class="mb-3"><i class="fa-solid fa-star rating-color"></i></span>
+                        }
+                        @if ((productDetails.ratingsAverage! % 1) !== 0) {
+                        <span class="mb-3"><i class="fa-solid fa-star-half-stroke rating-color"></i></span>
+                        }
+                        <span class="ps-2">{{productDetails.ratingsAverage}}</span>
+                    </div>
+
+
                 </div>
 
-                <div>
-                    @for (num of [1,2,3,4,5].slice(0,productDetails.ratingsAverage); track $index) {
-                    <span class="mb-3"><i class="fa-solid fa-star rating-color"></i></span>
-                    }
-                    @if ((productDetails.ratingsAverage! % 1) !== 0) {
-                    <span class="mb-3"><i class="fa-solid fa-star-half-stroke rating-color"></i></span>
-                    }
-                    <span class="ps-2">{{productDetails.ratingsAverage}}</span>
-                </div>
+                <h5 appCategoryLabel [categoryName]="productDetails.category.name!">
+                    {{productDetails.category.name}}</h5>
 
+
+                @if (productDetails.quantity > 1) {
+                <h6 class="w-fit p-2 text-green-600 font-bold rounded-lg">Instock</h6>
+                }@else {
+                <h6 class="w-fit p-2 text-red-600 font-bold rounded-lg">Out of stock</h6>
+                }
 
             </div>
 
-            <h5 appCategoryLabel [categoryName]="productDetails.category.name!">
-                {{productDetails.category.name}}</h5>
-
-
-            @if (productDetails.quantity > 1) {
-            <h6 class="w-fit p-2 text-green-600 font-bold rounded-lg">Instock</h6>
-            }@else {
-            <h6 class="w-fit p-2 text-red-600 font-bold rounded-lg">Out of stock</h6>
-            }
-
+            <div class="px-3 py-3">
+                <button class="btn-main w-full">
+                    Add To Cart
+                </button>
+            </div>
         </div>
 
-        <div class="px-3 py-3">
-            <button class="btn-main w-full">
-                Add To Cart
-            </button>
-        </div>
-    </div>
 
-
-    }
-</section>
+        }
+    </section>
+</div>

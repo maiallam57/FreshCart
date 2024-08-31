@@ -1,7 +1,6 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { Product } from '../../../../core/interfaces/product';
 import { Router } from '@angular/router';
-import { ProductService } from '../../../../core/services/product.service';
 import { CategoryLabelDirective } from '../../../../features/directives/category-label.directive';
 
 @Component({

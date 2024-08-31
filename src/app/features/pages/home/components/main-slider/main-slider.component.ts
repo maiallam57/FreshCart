@@ -16,6 +16,7 @@ export class MainSliderComponent {
     touchDrag: true,
     pullDrag: false,
     dots: false,
+    margin: 0,
     autoplay: true,
     autoplayTimeout: 3000,
     autoplayHoverPause: true,
@@ -34,9 +35,7 @@ export class MainSliderComponent {
       940: {
         items: 1
       }
-    },
-    nav: true
+    }, nav: true
   }
-
 
 }

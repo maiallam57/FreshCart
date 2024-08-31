@@ -21,7 +21,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   private readonly _productService = inject(ProductService);
   private readonly _activatedRoute = inject(ActivatedRoute);
 
-  customOptions: OwlOptions = {
+  customOptionsDetails: OwlOptions = {
     loop: true,
     mouseDrag: true,
     touchDrag: true,
@@ -32,20 +32,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     autoplayHoverPause: true,
     navSpeed: 700,
     navText: ['', ''],
-    responsive: {
-      0: {
-        items: 1
-      },
-      400: {
-        items: 1
-      },
-      740: {
-        items: 1
-      },
-      940: {
-        items: 1
-      }
-    },
+    items: 1,
     nav: false
   }
 

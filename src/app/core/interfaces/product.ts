@@ -1,4 +1,5 @@
 
+import { Brand } from "./Brand"
 import { Category } from "./category"
 
 
@@ -41,10 +42,4 @@ export interface Subcategory {
     name: string
     slug: string
     category: string
-}
-export interface Brand {
-    _id: string
-    name: string
-    slug: string
-    image: string
 }

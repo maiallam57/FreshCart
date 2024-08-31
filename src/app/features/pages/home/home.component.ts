@@ -4,8 +4,8 @@ import { Product } from '../../../core/interfaces/product';
 import { ProductItemComponent } from "../../../shared/components/ui/product-item/product-item.component";
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { MainSliderComponent } from "./components/main-slider/main-slider.component";
-import { CategorySliderComponent } from "./components/category-slider/category-slider.component";
 import { Subscription } from 'rxjs';
+import { CategorySliderComponent } from "./components/category-slider/category-slider.component";
 
 @Component({
   selector: 'app-home',
