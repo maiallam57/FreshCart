@@ -1,4 +1,6 @@
 
+import { Category } from "./category"
+
 
 // export interface Product {
 //     results: number
@@ -40,14 +42,6 @@ export interface Subcategory {
     slug: string
     category: string
 }
-
-export interface Category {
-    _id: string
-    name: string
-    slug: string
-    image: string
-}
-
 export interface Brand {
     _id: string
     name: string

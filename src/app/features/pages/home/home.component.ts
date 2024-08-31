@@ -1,10 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ProductService } from '../../../core/services/product.service';
 import { Product } from '../../../core/interfaces/product';
 import { ProductItemComponent } from "../../../shared/components/ui/product-item/product-item.component";
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { MainSliderComponent } from "./components/main-slider/main-slider.component";
 import { CategorySliderComponent } from "./components/category-slider/category-slider.component";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -13,19 +14,23 @@ import { CategorySliderComponent } from "./components/category-slider/category-s
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   private readonly _productService = inject(ProductService);
   productList: Product[] = [];
+  getAllProductsSub!: Subscription;
 
 
   ngOnInit(): void {
     this.getProducts();
   }
 
+  ngOnDestroy(): void {
+    this.getAllProductsSub?.unsubscribe();
+  }
 
   getProducts(): void {
-    this._productService.getAllProducts().subscribe({
+    this.getAllProductsSub = this._productService.getAllProducts().subscribe({
       next: (res) => {
         this.productList = res.data;
         console.log(this.productList);
@@ -35,4 +40,5 @@ export class HomeComponent implements OnInit {
       },
     });
   }
+
 }

@@ -1,1 +1,54 @@
-<p>product-details works!</p>
+<h2 class="text-2xl font-bold text-main text-center py-5 uppercase">Product Details</h2>
+
+<section class="mb-5 flex w-full mx-auto justify-center content-center">
+    @if (productDetails) {
+    <div class="w-4/12">
+        <owl-carousel-o [options]="customOptions">
+            @for (item of productDetails.images; track $index) {
+            <ng-template carouselSlide>
+                <img class="w-full h-[400px] rounded-lg" [src]="item" [alt]="'image'+$index">
+            </ng-template>
+            }
+        </owl-carousel-o>
+    </div>
+
+    <div class="flex flex-col w-8/12 p-5">
+        <div class="px-3">
+            <h4 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                {{productDetails.title}}</h4>
+
+            <p class="mb-3">{{productDetails.description}}</p>
+
+            <div class="mb-3">
+                <div>
+                    @if (productDetails.priceAfterDiscount) {
+                    <span class="mb-3 text-sm text-gray-800 line-through">{{productDetails.price}} EGP</span>
+                    <h5 class="mb-3 font-bold text-red-700">{{productDetails.priceAfterDiscount}} EGP
+                    </h5>
+                    }@else {
+                    <h5 class="mb-3 font-bold text-gray-800">{{productDetails.price}} EGP</h5>
+                    }
+                </div>
+
+                <div>
+                    @for (num of [1,2,3,4,5].slice(0,productDetails.ratingsAverage); track $index) {
+                    <span class="mb-3"><i class="fa-solid fa-star rating-color"></i></span>
+                    }
+                    @if ((productDetails.ratingsAverage! % 1) !== 0) {
+                    <span class="mb-3"><i class="fa-solid fa-star-half-stroke rating-color"></i></span>
+                    }
+                    <span class="ps-2">{{productDetails.ratingsAverage}}</span>
+                </div>
+
+
+            </div>
+
+
+            <h6 appCategoryLabel [categoryName]="productDetails.category.name!">
+                {{productDetails.category.name}}</h6>
+
+        </div>
+
+    </div>
+    }
+</section>

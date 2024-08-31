@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { Auth, ErrorRes } from '../../../interfaces/auth';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -11,13 +12,14 @@ import { Auth, ErrorRes } from '../../../interfaces/auth';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnDestroy {
   private readonly _authService = inject(AuthService);
   private readonly _router = inject(Router)
 
   isLoading: boolean = false;
   response!: Auth;
   errorRes!: ErrorRes;
+  setRegisterFormSub!: Subscription;
 
   registerForm: FormGroup = new FormGroup({
     name: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
@@ -52,21 +54,7 @@ export class RegisterComponent {
     if (this.registerForm.valid) {
       this.isLoading = true;
       console.log(this.registerForm)
-      this._authService.setRegisterForm(this.registerForm.value).subscribe({
-        next: (res) => {
-          this.isLoading = false;
-          this.response = res;
-          if (res.message == 'success') {
-            setInterval(() => {
-              this._router.navigate(['/login']);
-            }, 1000);
-          }
-        },
-        error: (err) => {
-          this.errorRes = err;
-          this.isLoading = false;
-        }
-      });
+      this.RegisterFormApi();
       this.registerForm.reset();
       this.response = {};
       this.errorRes = {};
@@ -74,4 +62,28 @@ export class RegisterComponent {
       this.isLoading = false;
     }
   }
+
+
+  RegisterFormApi(): void {
+    this.setRegisterFormSub = this._authService.setRegisterForm(this.registerForm.value).subscribe({
+      next: (res) => {
+        this.isLoading = false;
+        this.response = res;
+        if (res.message == 'success') {
+          setInterval(() => {
+            this._router.navigate(['/login']);
+          }, 1000);
+        }
+      },
+      error: (err) => {
+        this.errorRes = err;
+        this.isLoading = false;
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.setRegisterFormSub?.unsubscribe();
+  }
+
 }

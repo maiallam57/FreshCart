@@ -10,15 +10,17 @@ import { LoginComponent } from './core/auth/pages/login/login.component';
 import { ForgetPasswordComponent } from './core/auth/pages/forget-password/forget-password.component';
 import { authGuard } from './core/guards/auth.guard';
 import { unauthGuard } from './core/guards/unauth.guard';
+import { ProductDetailsComponent } from './features/pages/product-details/product-details.component';
 
 export const routes: Routes = [
     { path: "", redirectTo: "register", pathMatch: "full" },
     { path: "register", component: RegisterComponent, title: "Register", canActivate: [unauthGuard] },
     { path: "login", component: LoginComponent, title: "Login", canActivate: [unauthGuard] },
-    { path: "forgetPassword", component: ForgetPasswordComponent, title: "ForgetPassword", canActivate: [unauthGuard] },
+    { path: "forgetPassword", component: ForgetPasswordComponent, title: "Forget Password", canActivate: [unauthGuard] },
     { path: "home", component: HomeComponent, title: "Home", canActivate: [authGuard] },
     { path: "cart", component: CartComponent, title: "Cart", canActivate: [authGuard] },
     { path: "products", component: ProductsComponent, title: "Products", canActivate: [authGuard] },
+    { path: "productDetails/:productId", component: ProductDetailsComponent, title: "Product Details", canActivate: [authGuard] },
     { path: "categories", component: CategoriesComponent, title: "Categories", canActivate: [authGuard] },
     { path: "brands", component: BrandsComponent, title: "Brands", canActivate: [authGuard] },
 

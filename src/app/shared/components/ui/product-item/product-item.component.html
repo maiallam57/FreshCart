@@ -1,67 +1,46 @@
 <div class="product relative bg-white border border-gray-200 rounded-lg shadow h-fit">
-    <div class="w-full">
-        <img class="mx-auto w-full rounded-t-lg" [src]="product.imageCover" [alt]="product.title" />
-    </div>
-    <div class="p-5">
-        <h4 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">{{product.title.split('
-            ',2).join(" ")}}</h4>
+    <div (click)="getDetails()">
+        <div class="w-full">
+            <img class=" pb-3 mx-auto w-[250px] rounded-t-lg h-[250px]" [src]="product.imageCover"
+                [alt]="product.title" />
+        </div>
+        <div class="px-3">
+            <h4 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">{{product.title.split('
+                ',2).join(" ")}}</h4>
 
-        <div class="flex justify-between">
-            <div>
-                @if (product.priceAfterDiscount) {
-                <span class="mb-3 text-sm text-gray-800 line-through">{{product.price}}</span>
-                <h5 class="inline-block ps-2 mb-3 font-bold text-red-700">{{product.priceAfterDiscount}} EGP
-                </h5>
-                <div class="absolute py-1 top-0 left-0">
-                    <span class="p-2 bg-red-200 text-red-800 font-medium rounded-lg">
-                        Sale
-                    </span>
+
+            <div class="flex justify-between">
+                <div>
+                    @if (product.priceAfterDiscount) {
+                    <span class="mb-3 text-sm text-gray-800 line-through">{{product.price}}</span>
+                    <h5 class="inline-block ps-2 mb-3 font-bold text-red-700">{{product.priceAfterDiscount}} EGP
+                    </h5>
+                    <div class="absolute py-1 top-0 left-0">
+                        <span class="p-2 bg-red-200 text-red-800 font-medium rounded-lg">
+                            Sale
+                        </span>
+                    </div>
+                    }@else {
+                    <h5 class="mb-3 font-bold text-gray-800">{{product.price}} EGP</h5>
+                    }
                 </div>
-                }@else {
-                <h5 class="mb-3 font-bold text-gray-800">{{product.price}} EGP</h5>
-                }
-            </div>
-            <span class="ms-auto"><i class="fa-solid fa-star text-yellow-300"></i>{{product.ratingsAverage}}</span>
-            <div>
+                <span class="ms-auto"><i class="fa-solid fa-star rating-color"></i>{{product.ratingsAverage}}</span>
+                <div>
+
+                </div>
 
             </div>
+
+            <h6 appCategoryLabel [categoryName]="product.category.name!">
+                {{product.category.name}}</h6>
 
         </div>
-
-        @if(product.category.name == 'Music'){
-        <h6 class="mb-3 w-fit bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded 0">
-            {{product.category.name}}</h6>
-        }
-        @else if(product.category.name == "Men's Fashion"){
-        <h6 class="mb-3 w-fit bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded ">
-            {{product.category.name}}</h6>
-        }
-        @else if(product.category.name == "Women's Fashion"){
-        <h6 class="mb-3 w-fit bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">
-            {{product.category.name}}</h6>
-        }@else if(product.category.name == 'SuperMarket'){
-        <h6 class="mb-3 w-fit bg-orange-100 text-orange-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">
-            {{product.category.name}}</h6>
-        }@else if(product.category.name == 'Baby & Toys'){
-        <h6 class="mb-3 w-fit bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">
-            {{product.category.name}}</h6>
-        }@else if(product.category.name == 'Home'){
-        <h6 class="mb-3 w-fit bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">
-            {{product.category.name}}</h6>
-        }@else if(product.category.name == 'Books'){
-        <h6 class="mb-3 w-fit bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded ">
-            {{product.category.name}}</h6>
-        }@else if(product.category.name == 'Beauty & Health'){
-        <h6 class="mb-3 w-fit bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded ">
-            {{product.category.name}}</h6>
-        }@else if(product.category.name == 'Mobiles'){
-        <h6 class="mb-3 w-fit bg-teal-100 text-teal-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded ">
-            {{product.category.name}}</h6>
-        }@else {
-        <h6 class="mb-3 w-fit bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded ">
-            {{product.category.name}}</h6>
-        }
-
+    </div>
+    <div class="fav text-2xl absolute top-0 right-0 p-3">
+        <i class="fa-regular fa-heart"></i>
+        <!-- <i class="fa-solid fa-heart text-red-500"></i> -->
+    </div>
+    <div class="px-3 pb-3">
         <button class="btn-main w-full">
             Add To Cart
         </button>

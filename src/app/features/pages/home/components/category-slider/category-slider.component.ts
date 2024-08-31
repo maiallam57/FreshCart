@@ -1,7 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
-import { Category } from '../../../../../core/interfaces/product';
 import { CategoryService } from '../../../../../core/services/category.service';
+import { Category } from '../../../../../core/interfaces/category';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-category-slider',
@@ -10,14 +11,21 @@ import { CategoryService } from '../../../../../core/services/category.service';
   templateUrl: './category-slider.component.html',
   styleUrl: './category-slider.component.scss'
 })
-export class CategorySliderComponent implements OnInit {
+export class CategorySliderComponent implements OnInit, OnDestroy {
+
   private readonly _categoryservice = inject(CategoryService);
+  categoryList: Category[] = [];
+  getAllCategories!: Subscription;
+
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
-    touchDrag: false,
+    touchDrag: true,
     pullDrag: false,
     dots: false,
+    autoplay: true,
+    autoplayTimeout: 3000,
+    autoplayHoverPause: true,
     navSpeed: 700,
     margin: 10,
     navText: ['', ''],
@@ -38,22 +46,21 @@ export class CategorySliderComponent implements OnInit {
     nav: true
   }
 
-  categoryList: Category[] = [];
-
   ngOnInit(): void {
-    this.getCategories();
-  }
-
-  getCategories(): void {
-    this._categoryservice.getAllCategories().subscribe({
+    this.getAllCategories = this._categoryservice.getAllCategories().subscribe({
       next: (res) => {
         this.categoryList = res.data;
         console.log(this.categoryList);
       },
       error: (err) => {
         console.log(err);
-      },
-    });
+      }
+    })
+  }
+
+
+  ngOnDestroy(): void {
+    this.getAllCategories?.unsubscribe();
   }
 }
 

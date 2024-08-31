@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Auth, ErrorRes } from '../../../interfaces/auth';
 import { AuthService } from '../../../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-forget-password',
@@ -10,10 +11,11 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './forget-password.component.html',
   styleUrl: './forget-password.component.scss'
 })
-export class ForgetPasswordComponent {
+export class ForgetPasswordComponent implements OnDestroy {
   isLoading: boolean = false;
   response!: Auth;
   errorRes!: ErrorRes;
+  setforgetPasswordFormSub!: Subscription;
 
   private readonly _authService = inject(AuthService);
 
@@ -27,24 +29,31 @@ export class ForgetPasswordComponent {
 
     if (this.forgetPasswordForm.valid) {
       this.isLoading = true;
-      this._authService.setforgetPasswordForm(this.forgetPasswordForm.value).subscribe({
-        next: (res) => {
-          this.response = res;
-          console.log(res);
-          this.isLoading = false;
-        },
-        error: (err) => {
-          this.errorRes = err;
-          console.log(err);
-          this.isLoading = false;
-        }
-      });
+      this.forgetPasswordFormApi();
       this.forgetPasswordForm.reset();
       this.errorRes = {};
     } else {
       this.isLoading = false;
     }
+  }
 
+  forgetPasswordFormApi(): void {
+    this._authService.setforgetPasswordForm(this.forgetPasswordForm.value).subscribe({
+      next: (res) => {
+        this.response = res;
+        console.log(res);
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.errorRes = err;
+        console.log(err);
+        this.isLoading = false;
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.setforgetPasswordFormSub?.unsubscribe();
   }
 
 }
