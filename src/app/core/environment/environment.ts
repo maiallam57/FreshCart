@@ -7,5 +7,6 @@ export const environment = {
     products: '/api/v1/products',
     category: '/api/v1/categories',
     brand: '/api/v1/brands',
-    subcategories: '/api/v1/subcategories'
+    subcategories: '/api/v1/subcategories',
+    wishlist: '/api/v1/wishlist'
 }

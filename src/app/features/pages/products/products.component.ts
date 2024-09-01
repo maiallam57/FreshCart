@@ -41,7 +41,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   getBestSellerProducts(): void {
     for (let index = 0; index < this.productList.length; index++) {
-      if (this.productList[index].sold > 2800) {
+      if (this.productList[index].sold > 3000) {
         this.bestSeller?.push(this.productList[index]);
       }
     }

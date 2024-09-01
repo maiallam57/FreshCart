@@ -15,6 +15,6 @@ export class BrandService {
   }
 
   getSpecificBrand(id: string): Observable<any> {
-    return this._httpClient.get(`${environment.baseUrl + environment.category}/${id}`)
+    return this._httpClient.get(`${environment.baseUrl + environment.brand}/${id}`)
   }
 }
