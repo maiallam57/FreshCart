@@ -29,6 +29,13 @@ export class AuthService {
     return this._httpClient.post(`${this.baseurl}${environment.forgotPasswords}`, data);
   }
 
+  verifyResetCode(data: object): Observable<any> {
+    return this._httpClient.post(`${this.baseurl}${environment.verifyResetCode}`, data);
+  }
+
+  resetPassword(data: object): Observable<any> {
+    return this._httpClient.put(`${this.baseurl}${environment.resetPassword}`, data);
+  }
 
   saveUserData(): void { //save and decode the token
     if (localStorage.getItem(environment.token) != null) {

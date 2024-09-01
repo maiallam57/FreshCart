@@ -8,5 +8,7 @@ export const environment = {
     category: '/api/v1/categories',
     brand: '/api/v1/brands',
     subcategories: '/api/v1/subcategories',
-    wishlist: '/api/v1/wishlist'
+    wishlist: '/api/v1/wishlist',
+    verifyResetCode: '/api/v1/auth/verifyResetCode',
+    resetPassword: '/api/v1/auth/resetPassword'
 }
