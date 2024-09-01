@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnDestroy {
+export class LoginComponent  {
   isLoading: boolean = false;
   response!: Auth;
   errorRes!: ErrorRes;
@@ -31,6 +31,7 @@ export class LoginComponent implements OnDestroy {
   submitLogin() {
     if (this.loginForm.valid) {
       this.isLoading = true;
+      console.log(this.loginForm)
       this.LoginFormApi();
       this.loginForm.reset();
       this.response = {};
@@ -44,6 +45,7 @@ export class LoginComponent implements OnDestroy {
     this.setLoginFormSub = this._authService.setLoginForm(this.loginForm.value).subscribe({
       next: (res) => {
         this.response = res;
+        console.log(this.response)
         this.isLoading = false;
         if (res.message == 'success') {
           //save token
@@ -63,7 +65,7 @@ export class LoginComponent implements OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.setLoginFormSub?.unsubscribe();
-  }
+  // ngOnDestroy(): void {
+  //   this.setLoginFormSub?.unsubscribe();
+  // }
 }
