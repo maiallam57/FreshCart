@@ -11,6 +11,7 @@ import { ForgetPasswordComponent } from './core/auth/pages/forget-password/forge
 import { authGuard } from './core/guards/auth.guard';
 import { unauthGuard } from './core/guards/unauth.guard';
 import { ProductDetailsComponent } from './features/pages/product-details/product-details.component';
+import { WishlistComponent } from './features/pages/wishlist/wishlist.component';
 
 export const routes: Routes = [
     { path: "", redirectTo: "register", pathMatch: "full" },
@@ -23,6 +24,7 @@ export const routes: Routes = [
     { path: "productDetails/:productId", component: ProductDetailsComponent, title: "Product Details", canActivate: [authGuard] },
     { path: "categories", component: CategoriesComponent, title: "Categories", canActivate: [authGuard] },
     { path: "brands", component: BrandsComponent, title: "Brands", canActivate: [authGuard] },
+    { path: "wishlist", component: WishlistComponent, title: "Wishlist", canActivate: [authGuard] },
 
 
 
