@@ -3,11 +3,13 @@ import { ProductItemComponent } from "../../../shared/components/ui/product-item
 import { Product } from '../../../core/interfaces/product';
 import { ProductService } from '../../../core/services/product.service';
 import { Subscription } from 'rxjs';
+import { SearchInputComponent } from "../../../shared/components/search-input/search-input.component";
+import { SearchPipe } from '../../../shared/pipes/search.pipe';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [ProductItemComponent],
+  imports: [ProductItemComponent, SearchInputComponent, SearchPipe],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
@@ -15,6 +17,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   productList: Product[] = [];
   bestSeller: Product[] = [];
   getAllProductsSub!: Subscription;
+  receivedValue: string = "";
 
   private readonly _productService = inject(ProductService);
 
@@ -46,5 +49,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
       }
     }
     console.log(this.bestSeller);
+  }
+
+  receiveInputValue(value: string) {
+    this.receivedValue = value;
   }
 }

@@ -11,45 +11,37 @@ export class CategoryLabelDirective implements OnInit {
   private readonly _elementRef = inject(ElementRef);
   private readonly _renderer2 = inject(Renderer2);
 
-  private applyStyles(color: string): void {
-    const classList = [
-      'mb-3',
-      'w-fit',
-      'text-xs',
-      'font-medium',
-      'me-2',
-      'px-2.5',
-      'py-0.5',
-      'rounded',
-      `bg-${color}-300`,
-      `text-${color}-800`
-    ];
-    classList.forEach(className => {
-      this._renderer2.addClass(this._elementRef.nativeElement, className);
-    });
-  }
-
   private pickColor(): void {
     if (this.categoryName == 'Music') {
-      this.applyStyles('green');
+      this._renderer2.addClass(this._elementRef.nativeElement, 'bg-green-100');
+      this._renderer2.addClass(this._elementRef.nativeElement, 'text-green-500');
     } else if (this.categoryName == "Men's Fashion") {
-      this.applyStyles('blue');
+      this._renderer2.addClass(this._elementRef.nativeElement, 'bg-blue-100');
+      this._renderer2.addClass(this._elementRef.nativeElement, 'text-blue-500');
     } else if (this.categoryName == "Women's Fashion") {
-      this.applyStyles('red');
+      this._renderer2.addClass(this._elementRef.nativeElement, 'bg-red-100');
+      this._renderer2.addClass(this._elementRef.nativeElement, 'text-red-500');
     } else if (this.categoryName == "SuperMarket") {
-      this.applyStyles('orange');
+      this._renderer2.addClass(this._elementRef.nativeElement, 'bg-orange-100');
+      this._renderer2.addClass(this._elementRef.nativeElement, 'text-orange-500');
     } else if (this.categoryName == "Baby & Toys") {
-      this.applyStyles('yellow');
+      this._renderer2.addClass(this._elementRef.nativeElement, 'bg-yellow-100');
+      this._renderer2.addClass(this._elementRef.nativeElement, 'text-yellow-500');
     } else if (this.categoryName == "Home") {
-      this.applyStyles('purple');
+      this._renderer2.addClass(this._elementRef.nativeElement, 'bg-purple-100');
+      this._renderer2.addClass(this._elementRef.nativeElement, 'text-purple-500');
     } else if (this.categoryName == "Books") {
-      this.applyStyles('gray');
+      this._renderer2.addClass(this._elementRef.nativeElement, 'bg-gray-100');
+      this._renderer2.addClass(this._elementRef.nativeElement, 'text-gray-500');
     } else if (this.categoryName == "Beauty & Health") {
-      this.applyStyles('pink');
+      this._renderer2.addClass(this._elementRef.nativeElement, 'bg-pink-100');
+      this._renderer2.addClass(this._elementRef.nativeElement, 'text-pink-500');
     } else if (this.categoryName == "Mobiles") {
-      this.applyStyles('teal');
+      this._renderer2.addClass(this._elementRef.nativeElement, 'bg-teal-100');
+      this._renderer2.addClass(this._elementRef.nativeElement, 'text-teal-500');
     } else if (this.categoryName == "Electronics") {
-      this.applyStyles('gray');
+      this._renderer2.addClass(this._elementRef.nativeElement, 'bg-gray-100');
+      this._renderer2.addClass(this._elementRef.nativeElement, 'text-gray-500');
     }
   }
 

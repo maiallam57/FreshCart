@@ -1,7 +1,9 @@
 <section class="p-3 my-5 w-full">
+    <app-search-input (searchValue)="receiveInputValue($event)"></app-search-input>
+
     <h2 class="text-2xl font-bold mb-3">All Products</h2>
     <div class="my-4 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mx-auto">
-        @for (product of productList; track $index) {
+        @for (product of productList | search:receivedValue; track $index) {
         <app-product-item [product]="product" />
         }
     </div>
@@ -9,7 +11,7 @@
     @if (bestSeller.length>1) {
     <h2 class="text-2xl font-bold my-3">Best Seller</h2>
     <div class="my-3 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mx-auto">
-        @for (product of bestSeller; track $index) {
+        @for (product of bestSeller | search:receivedValue; track $index) {
         <app-product-item [product]="product" />
         }
     </div>
