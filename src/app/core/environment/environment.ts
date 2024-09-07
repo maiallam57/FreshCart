@@ -10,5 +10,6 @@ export const environment = {
     subcategories: '/api/v1/subcategories',
     wishlist: '/api/v1/wishlist',
     verifyResetCode: '/api/v1/auth/verifyResetCode',
-    resetPassword: '/api/v1/auth/resetPassword'
+    resetPassword: '/api/v1/auth/resetPassword',
+    cart: '/api/v1/cart'
 }

@@ -5,6 +5,7 @@ import { ProductService } from '../../../core/services/product.service';
 import { Subscription } from 'rxjs';
 import { SearchInputComponent } from "../../../shared/components/search-input/search-input.component";
 import { SearchPipe } from '../../../shared/pipes/search.pipe';
+import { CartService } from '../../../core/services/cart.service';
 
 @Component({
   selector: 'app-products',
@@ -17,9 +18,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
   productList: Product[] = [];
   bestSeller: Product[] = [];
   getAllProductsSub!: Subscription;
+  addProductToCartSub!: Subscription;
   receivedValue: string = "";
 
   private readonly _productService = inject(ProductService);
+  private readonly _cartService = inject(CartService);
 
   ngOnInit(): void {
     this.getProducts();
@@ -27,7 +30,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.getAllProductsSub?.unsubscribe();
-
+    this.addProductToCartSub?.unsubscribe();
   }
 
   getProducts(): void {
@@ -41,6 +44,20 @@ export class ProductsComponent implements OnInit, OnDestroy {
       },
     });
   }
+
+
+  addToCart(id: string) {
+    this.addProductToCartSub = this._cartService.addProductToCart(id).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
+
+
 
   getBestSellerProducts(): void {
     for (let index = 0; index < this.productList.length; index++) {

@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { Product } from '../../../../core/interfaces/product';
 import { Router } from '@angular/router';
 import { CategoryLabelDirective } from '../../../../features/directives/category-label.directive';
@@ -13,6 +13,8 @@ import { CategoryLabelDirective } from '../../../../features/directives/category
 export class ProductItemComponent {
 
   @Input() product!: Product;
+  @Output() sendId: EventEmitter<string> = new EventEmitter()
+
 
   private readonly _router = inject(Router);
 
@@ -20,4 +22,10 @@ export class ProductItemComponent {
     this._router.navigate(['/productDetails', this.product.id]);
   }
 
+
+  addToCart(productId: string): void {
+    console.log(productId);
+    this.sendId.emit(`${productId}`);
+    console.log("productId:", productId);
+  } 
 }
