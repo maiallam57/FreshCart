@@ -1,5 +1,10 @@
-<section class="my-5 grid grid-cols-2 md:grid-cols-3 gap-4">
-    @for (item of brandList; track $index) {
-    <app-card-item [itemImage]="item.image" [itemTitle]="''"></app-card-item>
-    }
-</section>
+<div class="my-5">
+    <div class="w-full my-3 px-5 py-8 bg-main-light shadow-md sm:rounded-lg">
+        <h2 class="text-2xl text-main font-extrabold text-center uppercase">Brands</h2>
+    </div>
+    <div class="my-5 grid grid-cols-2 md:grid-cols-3 gap-4">
+        @for (item of brandList; track $index) {
+        <app-card-item [itemImage]="item.image" [itemTitle]="''"></app-card-item>
+        }
+    </div>
+</div>

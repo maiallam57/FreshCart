@@ -11,7 +11,7 @@
             <div>
                 @if (product.priceAfterDiscount) {
                 <span class="mb-3 text-sm text-gray-800 line-through">{{product.price}}</span>
-                <h5 class="inline-block ps-2 mb-3 font-bold text-red-700">{{product.priceAfterDiscount}} EGP
+                <h5 class="inline-block ps-2 font-bold text-red-700">{{product.priceAfterDiscount}} EGP
                 </h5>
                 <div class="absolute p-1 m-3 top-0 left-0">
                     <span class="p-2 bg-red-600 text-white font-medium rounded-lg">
@@ -19,18 +19,22 @@
                     </span>
                 </div>
                 }@else {
-                <h5 class="mb-3 font-bold text-gray-800">{{product.price}} EGP</h5>
+                <h5 class="font-bold text-gray-800">{{product.price}} EGP</h5>
                 }
             </div>
 
-            <h6 class="mb-3 w-fit text-xs font-medium me-2 px-2.5 py-0.5 rounded" appCategoryLabel
-                [categoryName]="product.category.name!">
-                {{product.category.name}}</h6>
         </div>
     </div>
-    <div class="fav text-2xl absolute top-0 right-0 p-3">
-        <i class="fa-regular fa-heart"></i>
-        <!-- <i class="fa-solid fa-heart text-red-500"></i> -->
+
+    <div class="px-3 flex justify-between items-center relative">
+        <h6 class="my-3 w-fit text-xs font-medium me-2 px-2.5 py-0.5 rounded" appCategoryLabel
+            [categoryName]="product.category.name!">
+            {{product.category.name}}</h6>
+
+        <div class="fav text-2xl top-0 right-0 ps-3.5" (click)="addToWishlist(product.id)">
+            <i class=" fa-solid fa-heart"></i>
+            <!-- <i class="fa-solid fa-heart text-red-500"></i> -->
+        </div>
     </div>
 
     <div class="flex justify-between items-center px-3 pb-3">
@@ -38,7 +42,10 @@
             <span class="me-auto"><i class="fa-solid fa-star rating-color"></i>{{product.ratingsAverage}}</span>
         </div>
         <div>
-            <button class="btn-main w-fit" (click)="addToCart(product.id)">
+            <button class="btn-main w-fit" [disabled]="isLoading" (click)="addToCart(product.id)">
+                @if(isLoading){
+                <i class="fa fa-spin fa-spinner me-2"></i>
+                }
                 <i class="fa-solid fa-plus"></i> Add
             </button>
         </div>

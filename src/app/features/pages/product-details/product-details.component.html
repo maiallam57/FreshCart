@@ -46,7 +46,8 @@
 
                 </div>
 
-                <h5 appCategoryLabel [categoryName]="productDetails.category.name!">
+                <h5 class="my-3 w-fit text-xs font-medium me-2 px-2.5 py-0.5 rounded" appCategoryLabel
+                    [categoryName]="productDetails.category.name!">
                     {{productDetails.category.name}}</h5>
 
 
@@ -59,7 +60,7 @@
             </div>
 
             <div class="px-3 py-3">
-                <button class="btn-main w-full">
+                <button class="btn-main w-full" (click)="addToCart(productDetails.id)">
                     Add To Cart
                 </button>
             </div>

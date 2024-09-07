@@ -6,7 +6,7 @@
     <h2 class="text-2xl font-bold mb-3">Popular Products</h2>
     <div class="my-3 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mx-auto">
         @for (product of productList.slice(0,10) | search : receivedValue; track $index) {
-        <app-product-item [product]="product" />
+        <app-product-item [product]="product" (sendId)="addToCart($event)" (sendIdWishlist)="addItemToWishlist($event)"/>
         }
     </div>
 </section>

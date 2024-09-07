@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { SearchInputComponent } from "../../../shared/components/search-input/search-input.component";
 import { SearchPipe } from '../../../shared/pipes/search.pipe';
 import { CartService } from '../../../core/services/cart.service';
+import { WishlistService } from '../../../core/services/wishlist.service';
 
 @Component({
   selector: 'app-products',
@@ -19,10 +20,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
   bestSeller: Product[] = [];
   getAllProductsSub!: Subscription;
   addProductToCartSub!: Subscription;
+  addWishlistSub!: Subscription;
   receivedValue: string = "";
 
   private readonly _productService = inject(ProductService);
   private readonly _cartService = inject(CartService);
+  private readonly _wishlistService = inject(WishlistService);
 
   ngOnInit(): void {
     this.getProducts();
@@ -31,6 +34,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.getAllProductsSub?.unsubscribe();
     this.addProductToCartSub?.unsubscribe();
+    this.addWishlistSub?.unsubscribe();
   }
 
   getProducts(): void {
@@ -57,7 +61,16 @@ export class ProductsComponent implements OnInit, OnDestroy {
     });
   }
 
-
+  addItemToWishlist(id: string): void {
+    this.addWishlistSub = this._wishlistService.DelFromWishlist(id).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
 
   getBestSellerProducts(): void {
     for (let index = 0; index < this.productList.length; index++) {

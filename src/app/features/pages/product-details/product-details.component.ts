@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CategoryLabelDirective } from '../../directives/category-label.directive';
+import { CartService } from '../../../core/services/cart.service';
 
 @Component({
   selector: 'app-product-details',
@@ -17,9 +18,11 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   productDetails: Product | null = null;
   getSpecificProductSub!: Subscription;
+  addProductToCartSub!: Subscription;
 
   private readonly _productService = inject(ProductService);
   private readonly _activatedRoute = inject(ActivatedRoute);
+  private readonly _cartService = inject(CartService);
 
   customOptionsDetails: OwlOptions = {
     loop: true,
@@ -47,6 +50,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.getSpecificProductSub?.unsubscribe();
+    this.addProductToCartSub?.unsubscribe();
   }
 
 
@@ -54,6 +58,17 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     this.getSpecificProductSub = this._productService.getSpecificProducts(productId).subscribe({
       next: (res) => {
         this.productDetails = res.data;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
+
+  addToCart(id: string) {
+    this.addProductToCartSub = this._cartService.addProductToCart(id).subscribe({
+      next: (res) => {
+        console.log(res);
       },
       error: (err) => {
         console.log(err);
