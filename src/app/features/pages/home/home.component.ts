@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { ProductService } from '../../../core/services/product.service';
 import { Product } from '../../../core/interfaces/product';
 import { ProductItemComponent } from "../../../shared/components/ui/product-item/product-item.component";
@@ -20,6 +20,8 @@ import { WishlistService } from '../../../core/services/wishlist.service';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
+  private readonly _elementRef = inject(ElementRef);
+  private readonly _renderer2 = inject(Renderer2);
   private readonly _productService = inject(ProductService);
   private readonly _cartService = inject(CartService);
   private readonly _wishlistService = inject(WishlistService);
@@ -27,7 +29,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   productList: Product[] = [];
   getAllProductsSub!: Subscription;
   addProductToCartSub!: Subscription;
-  addWishlistSub!: Subscription;
+  addProductTowishlistSub!: Subscription;
+  delProductTowishlistSub!: Subscription;
   receivedValue: string = "";
 
   ngOnInit(): void {
@@ -37,13 +40,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.getAllProductsSub?.unsubscribe();
     this.addProductToCartSub?.unsubscribe();
-    this.addWishlistSub?.unsubscribe();
+    this.addProductTowishlistSub?.unsubscribe();
+    this.delProductTowishlistSub?.unsubscribe();
   }
 
   getProducts(): void {
     this.getAllProductsSub = this._productService.getAllProducts().subscribe({
       next: (res) => {
         this.productList = res.data;
+        console.log(this.productList)
       },
       error: (err) => {
         console.log(err);
@@ -62,16 +67,31 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  addItemToWishlist(id: string): void {
-    this.addWishlistSub = this._wishlistService.DelFromWishlist(id).subscribe({
-      next: (res) => {
-        console.log(res);
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    });
+  addItemToWishlist(productId: string): void {
+    let element = this._elementRef.nativeElement;
+    if (element.classList.contains('text-red-500')) {
+      this.delProductTowishlistSub = this._wishlistService.DelFromWishlist(productId).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+      this._renderer2.removeClass(element, 'text-red-500');
+    } else {
+      this._renderer2.addClass(element, 'text-red-500');
+      this.addProductTowishlistSub = this._wishlistService.AddToWishlist(productId).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+    }
   }
+
   receiveInputValue(value: string) {
     this.receivedValue = value;
   }

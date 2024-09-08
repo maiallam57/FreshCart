@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { ProductItemComponent } from "../../../shared/components/ui/product-item/product-item.component";
 import { Product } from '../../../core/interfaces/product';
 import { ProductService } from '../../../core/services/product.service';
@@ -20,9 +20,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
   bestSeller: Product[] = [];
   getAllProductsSub!: Subscription;
   addProductToCartSub!: Subscription;
-  addWishlistSub!: Subscription;
+  addProductTowishlistSub!: Subscription;
+  delProductTowishlistSub!: Subscription;
   receivedValue: string = "";
 
+  private readonly _elementRef = inject(ElementRef);
+  private readonly _renderer2 = inject(Renderer2);
   private readonly _productService = inject(ProductService);
   private readonly _cartService = inject(CartService);
   private readonly _wishlistService = inject(WishlistService);
@@ -34,7 +37,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.getAllProductsSub?.unsubscribe();
     this.addProductToCartSub?.unsubscribe();
-    this.addWishlistSub?.unsubscribe();
+    this.addProductTowishlistSub?.unsubscribe();
+    this.delProductTowishlistSub?.unsubscribe();
   }
 
   getProducts(): void {
@@ -61,16 +65,32 @@ export class ProductsComponent implements OnInit, OnDestroy {
     });
   }
 
-  addItemToWishlist(id: string): void {
-    this.addWishlistSub = this._wishlistService.DelFromWishlist(id).subscribe({
-      next: (res) => {
-        console.log(res);
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    });
+
+  addItemToWishlist(productId: string): void {
+    let element = this._elementRef.nativeElement;
+    if (element.classList.contains('text-red-500')) {
+      this.delProductTowishlistSub = this._wishlistService.DelFromWishlist(productId).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+      this._renderer2.removeClass(element, 'text-red-500');
+    } else {
+      this._renderer2.addClass(element, 'text-red-500');
+      this.addProductTowishlistSub = this._wishlistService.AddToWishlist(productId).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+    }
   }
+
 
   getBestSellerProducts(): void {
     for (let index = 0; index < this.productList.length; index++) {

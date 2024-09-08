@@ -43,6 +43,5 @@ export class ProductItemComponent {
     } else {
       this._renderer2.addClass(element, 'text-red-500');
     }
-
   }
 }
