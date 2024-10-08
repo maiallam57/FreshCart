@@ -22,10 +22,10 @@ export class CartService {
       });
   }
 
-  updateProductQuantity(quantity: string): Observable<any> {
-    return this._httpClient.put(environment.baseUrl + environment.cart,
+  updateProductQuantity(id: string, quantity: number): Observable<any> {
+    return this._httpClient.put(environment.baseUrl + environment.cart + `/${id}`,
       {
-        "count": quantity
+        "count": `${quantity}`
       },
       {
         headers: this.header

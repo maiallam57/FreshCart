@@ -5,10 +5,11 @@
                 [alt]="product.title" />
         </div>
         <div class="px-3">
-            <h4 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">{{product.title.split('
+            <h4 class="text-lg font-bold tracking-tight text-gray-900 dark:text-white">{{product.title.split('
                 ',2).join(" ")}}</h4>
+            <span class="text-main text-xs">{{product.brand.name}}</span>
 
-            <div>
+            <div class="mt-2">
                 @if (product.priceAfterDiscount) {
                 <span class="mb-3 text-sm text-gray-800 line-through">{{product.price}}</span>
                 <h5 class="inline-block ps-2 font-bold text-red-700">{{product.priceAfterDiscount}} EGP

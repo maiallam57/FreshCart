@@ -26,7 +26,7 @@
                 </tr>
             </thead>
             <tbody>
-                @for (item of cart.data.products; track $index) {
+                @for (item of cart.data.products; track item.product._id) {
                 <tr
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <td class="p-4">
@@ -34,11 +34,15 @@
                             [alt]="item.product.title">
                     </td>
                     <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                        {{item.product.title}}
+                        <h4>{{item.product.title}}</h4>
+                        <h5 class="my-3 w-fit text-sm font-medium me-2 px-2.5 py-0.5 rounded" appCategoryLabel
+                            [categoryName]="item.product.category.name">{{item.product.category.name}}</h5>
+                        <span class="px-2.5 text-main text-xs">{{item.product.brand.name}}</span>
+
                     </td>
                     <td class="px-6 py-4">
                         <div class="flex items-center">
-                            <button
+                            <button (click)="updateCount(item.product._id, item.count-1)"
                                 class="inline-flex items-center justify-center p-1 me-3 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                                 type="button">
                                 <span class="sr-only">Quantity button</span>
@@ -47,7 +51,7 @@
                             <div>
                                 <span>{{item.count}}</span>
                             </div>
-                            <button
+                            <button (click)="updateCount(item.product._id,  item.count+1)"
                                 class="inline-flex items-center justify-center h-6 w-6 p-1 ms-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                                 type="button">
                                 <span class="sr-only">Quantity button</span>
@@ -59,7 +63,7 @@
                         {{item.price | currency:'EGP '}}
                     </td>
                     <td class="px-6 py-4">
-                        <button class="btn-danger">Remove
+                        <button class="btn-danger" (click)="removeCartItem(item.product._id)">Remove
                             <i class="fa-solid fa-trash"></i></button>
                     </td>
                 </tr>
@@ -76,7 +80,7 @@
     </div>
 
     <div class="ms-auto w-fit">
-        <button [disabled]="!this.cart.numOfCartItems" type="submit" class="btn-main w-fit my-5">
+        <button [disabled]="!this.cart.numOfCartItems || isLoading" type="submit" class="btn-main w-fit my-5">
             @if(isLoading){
             <i class="fa fa-spin fa-spinner"></i>
             }

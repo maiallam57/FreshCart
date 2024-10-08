@@ -1,5 +1,6 @@
 export interface Cart {
     status: string
+    id: string
     numOfCartItems: number
     data: Data
 }
